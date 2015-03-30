@@ -7,7 +7,7 @@
 
 Name:               nodejs-mime-db
 Version:            1.8.0
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Media Type Database
 
 Group:              Development/Libraries
@@ -63,7 +63,7 @@ cp -pr package.json index.js db.json \
 %check
 %if 0%{?enable_tests}
 %nodejs_symlink_deps --check
-grunt test
+npm test
 %endif
 
 
@@ -72,6 +72,9 @@ grunt test
 %{nodejs_sitelib}/%{barename}/
 
 %changelog
+* Mon Mar 30 2015 Robbie Harwood <rharwood@redhat.com> - 1.8.0-3
+- Use correct command for running tests.
+
 * Mon Mar 30 2015 Robbie Harwood <rharwood@redhat.com> - 1.8.0-2
 - Switch to github tarball which includes tests.
 
