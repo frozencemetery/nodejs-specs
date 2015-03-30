@@ -7,13 +7,13 @@
 
 Name:               nodejs-bunyan
 Version:            1.3.4
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            a JSON logging library for node.js services
 
 Group:              Development/Libraries
 License:            MIT
 URL:                https://www.npmjs.org/package/%{barename}
-Source0:            http://registry.npmjs.org/%{barename}/-/%{barename}-%{version}.tgz
+Source0:            https://github.com/trentm/node-bunyan/archive/%{version}.tar.gz
 BuildArch:          noarch
 
 ExclusiveArch:      %{nodejs_arches} noarch
@@ -37,7 +37,7 @@ a JSON logging library for node.js services and a bunyan CLI tool for
 nicely viewing those logs
 
 %prep
-%setup -q -n package
+%setup -q -n node-bunyan-%{version}
 
 # Remove bundled node_modules if there are any.
 rm -rf node_modules/
@@ -62,7 +62,7 @@ chmod 0755 %{buildroot}/%{_bindir}/bunyan
 %check
 %if 0%{?enable_tests}
 %nodejs_symlink_deps --check
-grunt test
+npm test
 %endif
 
 
@@ -72,5 +72,9 @@ grunt test
 %{_bindir}/bunyan
 
 %changelog
+* Mon Mar 30 2015 Robbie Harwood <rharwood@redhat.com> - 1.3.4-2
+- Switch to github tarball.
+- Update tests invocation.
+
 * Fri Mar 27 2015 Robbie Harwood <rharwood@redhat.com> - 1.3.4-1
 - Initial packaging for Fedora.
