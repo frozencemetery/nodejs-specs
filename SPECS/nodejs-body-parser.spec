@@ -6,13 +6,13 @@
 
 Name:               nodejs-body-parser
 Version:            1.10.2
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Node.js body parsing middleware
 
 Group:              Development/Libraries
 License:            MIT
 URL:                https://www.npmjs.org/package/%{barename}
-Source0:            http://registry.npmjs.org/%{barename}/-/%{barename}-%{version}.tgz
+Source0:            https://github.com/expressjs/%{barename}/archive/%{version}.tar.gz
 BuildArch:          noarch
 
 ExclusiveArch:      %{nodejs_arches} noarch
@@ -41,7 +41,7 @@ Node.js body parsing middleware.  This does not handle multipart
 bodies, due to their complex and typically large nature.
 
 %prep
-%setup -q -n package
+%setup -q -n %{barename}-%{version}
 
 # Remove bundled node_modules if there are any.
 rm -rf node_modules/
@@ -66,7 +66,7 @@ cp -pr package.json index.js lib/ \
 %check
 %if 0%{?enable_tests}
 %nodejs_symlink_deps --check
-grunt test
+npm test
 %endif
 
 
@@ -75,5 +75,9 @@ grunt test
 %{nodejs_sitelib}/%{barename}/
 
 %changelog
+* Mon Mar 30 2015 Robbie Harwood <rharwood@redhat.com> - 1.10.2-2
+- Switch to github tarball.
+- Fix test invocation.
+
 * Fri Mar 27 2015 Robbie Harwood <rharwood@redhat.com> - 1.10.2-1
 - Initial packaging for Fedora.
