@@ -7,13 +7,13 @@
 
 Name:               nodejs-elasticsearch
 Version:            3.1.3
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            The official low-level Elasticsearch client for Node.js and the browser.
 
 Group:              Development/Libraries
 License:            ASL 2.0
 URL:                https://www.npmjs.org/package/%{barename}
-Source0:            http://registry.npmjs.org/%{barename}/-/%{barename}-%{version}.tgz
+Source0:            https://github.com/elastic/elasticsearch-js/archive/v%{version}.tar.gz
 BuildArch:          noarch
 
 ExclusiveArch:      %{nodejs_arches} noarch
@@ -81,7 +81,7 @@ balancing (with pluggable selection strategy) across all available
 nodes.
 
 %prep
-%setup -q -n package
+%setup -q -n elasticsearch-js-%{version}
 
 # Remove bundled node_modules if there are any.
 rm -rf node_modules/
@@ -106,7 +106,7 @@ cp -pr package.json src/ \
 %check
 %if 0%{?enable_tests}
 %nodejs_symlink_deps --check
-grunt test
+npm test
 %endif
 
 
@@ -115,5 +115,9 @@ grunt test
 %{nodejs_sitelib}/%{barename}/
 
 %changelog
+* Mon Mar 30 2015 Robbie Harwood <rharwood@redhat.com> - 3.1.3-2
+- Switch to github tarball.
+- Update tests invocation.
+
 * Wed Mar 25 2015 Robbie Harwood <rharwood@redhat.com> - 3.1.3-1
 - Initial packaging for Fedora.
