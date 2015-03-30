@@ -6,13 +6,13 @@
 
 Name:               nodejs-mime-types
 Version:            2.0.10
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            The ultimate javascript content-type utility.
 
 Group:              Development/Libraries
 License:            MIT
 URL:                https://www.npmjs.org/package/%{barename}
-Source0:            http://registry.npmjs.org/%{barename}/-/%{barename}-%{version}.tgz
+Source0:            https://github.com/jshttp/%{barename}/archive/%{version}.tar.gz
 BuildArch:          noarch
 
 ExclusiveArch:      %{nodejs_arches} noarch
@@ -37,7 +37,7 @@ added such as jade and stylus via mime-db No .define() functionality
 Otherwise, the API is compatible.
 
 %prep
-%setup -q -n package
+%setup -q -n %{barename}-%{version}
 
 # Remove bundled node_modules if there are any.
 rm -rf node_modules/
@@ -67,5 +67,8 @@ grunt test
 %{nodejs_sitelib}/%{barename}/
 
 %changelog
+* Thu Mar 25 2015 Robbie Harwood <rharwood@redhat.com> - 2.0.10-2
+- Switch to github tarball.
+
 * Thu Mar 25 2015 Robbie Harwood <rharwood@redhat.com> - 2.0.10-1
 - Initial packaging for Fedora.
