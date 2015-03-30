@@ -7,7 +7,7 @@
 
 Name:               nodejs-less-middleware
 Version:            1.0.4
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            LESS.js middleware for connect.
 
 Group:              Development/Libraries
@@ -43,6 +43,7 @@ Connect JS framework and by extension the Express JS framework.
 rm -rf node_modules/
 
 %nodejs_fixdep --caret
+%nodejs_fixdep less '^1.7.0'
 
 %build
 %nodejs_symlink_deps --build
@@ -67,6 +68,9 @@ npm test
 %{nodejs_sitelib}/less-middleware/
 
 %changelog
+* Mon Mar 23 2015 Robbie Harwood <rharwood@redhat.com> - 1.0.4-3
+- Work around .x interaction with fixdep.
+
 * Mon Mar 23 2015 Robbie Harwood <rharwood@redhat.com> - 1.0.4-2
 - Switch to github tarball.
 - Update test invocations.
