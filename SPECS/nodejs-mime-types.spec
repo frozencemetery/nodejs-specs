@@ -6,7 +6,7 @@
 
 Name:               nodejs-mime-types
 Version:            2.0.10
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            The ultimate javascript content-type utility.
 
 Group:              Development/Libraries
@@ -58,7 +58,7 @@ cp -pr package.json index.js \
 %check
 %if 0%{?enable_tests}
 %nodejs_symlink_deps --check
-grunt test
+npm test
 %endif
 
 
@@ -67,7 +67,10 @@ grunt test
 %{nodejs_sitelib}/%{barename}/
 
 %changelog
-* Thu Mar 25 2015 Robbie Harwood <rharwood@redhat.com> - 2.0.10-2
+* Mon Mar 30 2015 Robbie Harwood <rharwood@redhat.com> - 2.0.10-3
+- Use proper test invocation.
+
+* Mon Mar 30 2015 Robbie Harwood <rharwood@redhat.com> - 2.0.10-2
 - Switch to github tarball.
 
 * Thu Mar 25 2015 Robbie Harwood <rharwood@redhat.com> - 2.0.10-1
