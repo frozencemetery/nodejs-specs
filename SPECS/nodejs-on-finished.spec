@@ -6,13 +6,13 @@
 
 Name:               nodejs-on-finished
 Version:            2.2.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Execute a callback when a request closes, finishes, or errors
 
 Group:              Development/Libraries
 License:            MIT
 URL:                https://www.npmjs.org/package/%{barename}
-Source0:            http://registry.npmjs.org/%{barename}/-/%{barename}-%{version}.tgz
+Source0:            https://github.com/jshttp/%{barename}/archive/v%{version}.tar.gz
 BuildArch:          noarch
 
 ExclusiveArch:      %{nodejs_arches} noarch
@@ -31,7 +31,7 @@ BuildRequires:      npm(mocha)
 Execute a callback when a request closes, finishes, or errors
 
 %prep
-%setup -q -n package
+%setup -q -n %{barename}-%{version}
 
 # Remove bundled node_modules if there are any.
 rm -rf node_modules/
@@ -52,7 +52,7 @@ cp -pr package.json index.js \
 %check
 %if 0%{?enable_tests}
 %nodejs_symlink_deps --check
-grunt test
+npm test
 %endif
 
 
@@ -61,5 +61,9 @@ grunt test
 %{nodejs_sitelib}/%{barename}/
 
 %changelog
+* Mon Mar 30 2015 Robbie Harwood <rharwood@redhat.com> - 2.2.0-2
+- Switch to github tarball.
+- Correct test invocation.
+
 * Thu Mar 25 2015 Robbie Harwood <rharwood@redhat.com> - 2.2.0-1
 - Initial packaging for Fedora.
