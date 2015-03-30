@@ -6,13 +6,13 @@
 
 Name:               nodejs-media-typer
 Version:            0.3.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Simple RFC 6838 media type parser and formatter
 
 Group:              Development/Libraries
 License:            MIT
 URL:                https://www.npmjs.org/package/%{barename}
-Source0:            http://registry.npmjs.org/%{barename}/-/%{barename}-%{version}.tgz
+Source0:            https://github.com/jshttp/%{barename}/archive/v%{version}.tar.gz
 BuildArch:          noarch
 
 ExclusiveArch:      %{nodejs_arches} noarch
@@ -30,7 +30,7 @@ BuildRequires:      npm(should)
 Simple RFC 6838 media type parser
 
 %prep
-%setup -q -n package
+%setup -q -n %{barename}-%{version}
 
 # Remove bundled node_modules if there are any.
 rm -rf node_modules/
@@ -51,7 +51,7 @@ cp -pr package.json index.js \
 %check
 %if 0%{?enable_tests}
 %nodejs_symlink_deps --check
-grunt test
+npm test
 %endif
 
 
@@ -60,5 +60,9 @@ grunt test
 %{nodejs_sitelib}/%{barename}/
 
 %changelog
+* Mon Mar 30 2015 Robbie Harwood <rharwood@redhat.com> - 0.3.0-2
+- Switch to github tarball.
+- Correct test invocation.
+
 * Wed Mar 25 2015 Robbie Harwood <rharwood@redhat.com> - 0.3.0-1
 - Initial packaging for Fedora.
