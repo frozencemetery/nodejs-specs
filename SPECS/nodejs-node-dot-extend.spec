@@ -6,13 +6,13 @@
 
 Name:               nodejs-node-dot-extend
 Version:            1.0.10
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            A port of jQuery.extend that actually works on node.js
 
 Group:              Development/Libraries
 License:            MIT
 URL:                https://www.npmjs.org/package/node.extend
-Source0:            http://registry.npmjs.org/%{barename}/-/%{barename}-%{version}.tgz
+Source0:            https://github.com/dreamerslab/%{barename}/archive/v%{version}.tar.gz
 BuildArch:          noarch
 
 ExclusiveArch:      %{nodejs_arches} noarch
@@ -30,7 +30,7 @@ BuildRequires:      npm(tape)
 A port of jQuery.extend that actually works on node.js
 
 %prep
-%setup -q -n package
+%setup -q -n %{barename}-%{version}
 
 # Remove bundled node_modules if there are any..
 rm -rf node_modules/
@@ -51,7 +51,7 @@ cp -pr package.json index.js lib \
 %check
 %if 0%{?enable_tests}
 %nodejs_symlink_deps --check
-grunt test
+npm test
 %endif
 
 
@@ -60,5 +60,9 @@ grunt test
 %{nodejs_sitelib}/node.extend/
 
 %changelog
+* Mon Mar 23 2015 Robbie Harwood <rharwood@redhat.com> - 1.0.10-2
+- Switch to github tarball.
+- Correct tests command.
+
 * Mon Mar 23 2015 Robbie Harwood <rharwood@redhat.com> - 1.0.10-1
 - Initial packaging for Fedora.
