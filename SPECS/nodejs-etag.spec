@@ -7,13 +7,13 @@
 
 Name:               nodejs-etag
 Version:            1.5.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Create simple ETags
 
 Group:              Development/Libraries
 License:            MIT
 URL:                https://www.npmjs.org/package/%{barename}
-Source0:            http://registry.npmjs.org/%{barename}/-/%{barename}-%{version}.tgz
+Source0:            https://github.com/jshttp/etag/archive/v%{version}.tar.gz
 BuildArch:          noarch
 
 ExclusiveArch:      %{nodejs_arches} noarch
@@ -33,7 +33,7 @@ BuildRequires:      npm(seedrandom) # not packaged
 Create simple ETags
 
 %prep
-%setup -q -n package
+%setup -q -n %{barename}-%{version}
 
 # Remove bundled node_modules if there are any.
 rm -rf node_modules/
@@ -54,7 +54,7 @@ cp -pr package.json index.js \
 %check
 %if 0%{?enable_tests}
 %nodejs_symlink_deps --check
-grunt test
+npm test
 %endif
 
 
@@ -63,5 +63,9 @@ grunt test
 %{nodejs_sitelib}/%{barename}/
 
 %changelog
+* Mon Mar 30 2015 Robbie Harwood <rharwood@redhat.com> - 1.5.1-2
+- Switch to github tarball.
+- Update tests invocation.
+
 * Wed Mar 25 2015 Robbie Harwood <rharwood@redhat.com> - 1.5.1-1
 - Initial packaging for Fedora.
