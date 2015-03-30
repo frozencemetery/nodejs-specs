@@ -6,13 +6,13 @@
 
 Name:               nodejs-htpasswd
 Version:            2.1.6
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Node.js module for Apache style password encryption using md5.
 
 Group:              Development/Libraries
 License:            MIT
 URL:                https://www.npmjs.org/package/%{barename}
-Source0:            http://registry.npmjs.org/%{barename}/-/%{barename}-%{version}.tgz
+Source0:            https://github.com/gevorg/%{barename}/archive/%{version}.tar.gz
 BuildArch:          noarch
 
 ExclusiveArch:      %{nodejs_arches} noarch
@@ -28,7 +28,7 @@ BuildRequires:      npm(nodeunit)
 Node.js module for Apache style password encryption using md5.
 
 %prep
-%setup -q -n package
+%setup -q -n %{barename}-%{version}
 
 # Remove bundled node_modules if there are any.
 rm -rf node_modules/
@@ -50,7 +50,7 @@ cp -pr package.json lib/ \
 %check
 %if 0%{?enable_tests}
 %nodejs_symlink_deps --check
-grunt test
+npm test
 %endif
 
 
@@ -59,5 +59,9 @@ grunt test
 %{nodejs_sitelib}/%{barename}/
 
 %changelog
+* Mon Mar 30 2015 Robbie Harwood <rharwood@redhat.com> - 2.1.6-2
+- Switch to github tarball.
+- Update tests invocation.
+
 * Tue Mar 24 2015 Robbie Harwood <rharwood@redhat.com> - 2.1.6-1
 - Initial packaging for Fedora.
