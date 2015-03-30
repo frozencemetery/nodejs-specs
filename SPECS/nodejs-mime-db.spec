@@ -7,13 +7,13 @@
 
 Name:               nodejs-mime-db
 Version:            1.8.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Media Type Database
 
 Group:              Development/Libraries
 License:            MIT
 URL:                https://www.npmjs.org/package/%{barename}
-Source0:            http://registry.npmjs.org/%{barename}/-/%{barename}-%{version}.tgz
+Source0:            https://github.com/jshttp/%{barename}/archive/v%{version}.tar.gz
 BuildArch:          noarch
 
 ExclusiveArch:      %{nodejs_arches} noarch
@@ -42,7 +42,7 @@ http://www.iana.org/assignments/media-types/media-types.xhtml
 http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types
 
 %prep
-%setup -q -n package
+%setup -q -n %{barename}-%{version}
 
 # Remove bundled node_modules if there are any.
 rm -rf node_modules/
@@ -72,5 +72,8 @@ grunt test
 %{nodejs_sitelib}/%{barename}/
 
 %changelog
-* Thu Mar 25 2015 Robbie Harwood <rharwood@redhat.com> - 1.8.0-1
+* Mon Mar 30 2015 Robbie Harwood <rharwood@redhat.com> - 1.8.0-2
+- Switch to github tarball which includes tests.
+
+* Thu Mar 26 2015 Robbie Harwood <rharwood@redhat.com> - 1.8.0-1
 - Initial packaging for Fedora.
